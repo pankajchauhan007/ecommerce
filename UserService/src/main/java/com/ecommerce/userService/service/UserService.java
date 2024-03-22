@@ -1,5 +1,6 @@
 package com.ecommerce.userService.service;
 
+import com.ecommerce.userService.model.ChangeStatus;
 import com.ecommerce.userService.model.User;
 import com.ecommerce.userService.payload.UserRequest;
 import com.ecommerce.userService.payload.UserResponse;
@@ -22,4 +23,8 @@ public interface UserService {
 
     //delete
     void deleteById(int userId);
+
+    //change status
+    User changeStatus(int userId, ChangeStatus changeStatus);
+    void isDeleted(int userId);
 }
