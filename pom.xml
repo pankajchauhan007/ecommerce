@@ -24,7 +24,6 @@
     <module>UserService</module>
       <module>ProductService</module>
       <module>OrderService</module>
-      <module>PaymentsService</module>
   </modules>
 
   <properties>

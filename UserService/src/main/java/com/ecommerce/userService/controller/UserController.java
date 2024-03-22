@@ -1,8 +1,10 @@
 package com.ecommerce.userService.controller;
 
+import com.ecommerce.userService.config.AppConstant;
 import com.ecommerce.userService.model.User;
 import com.ecommerce.userService.payload.UserRequest;
 import com.ecommerce.userService.payload.UserResponse;
+import com.ecommerce.userService.payload.UserResponsePagination;
 import com.ecommerce.userService.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +58,19 @@ public class UserController {
         this.userService.deleteById(userId);
         log.info("User deleted successfully");
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination")
+    public ResponseEntity<List<UserResponsePagination>> getPaginationData(
+            @RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_NUMBER) int pageNumber,
+            @RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_SIZE) int pageSize,
+            @RequestParam(defaultValue = AppConstant.DEFAULT_SORT_BY) String sortBy,
+            @RequestParam(defaultValue =AppConstant.DEFAULT_SORT_DIRECTION) String sortDir
+    ) {
+       this.userService.pagination(pageNumber, pageSize, sortBy, sortDir);
+        List<UserResponsePagination> userResponses = this.userService.pagination(pageNumber, pageSize, sortBy, sortDir);
+        log.info("user list found successfully");
+        return new ResponseEntity<>(userResponses, HttpStatus.FOUND);
     }
 
 }

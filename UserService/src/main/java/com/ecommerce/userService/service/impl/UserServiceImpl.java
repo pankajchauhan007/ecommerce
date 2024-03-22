@@ -5,13 +5,19 @@ import com.ecommerce.userService.model.ChangeStatus;
 import com.ecommerce.userService.model.User;
 import com.ecommerce.userService.payload.UserRequest;
 import com.ecommerce.userService.payload.UserResponse;
+import com.ecommerce.userService.payload.UserResponsePagination;
 import com.ecommerce.userService.repository.UserRepository;
 import com.ecommerce.userService.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,6 +96,26 @@ public class UserServiceImpl implements UserService {
             this.userRepository.save(userFound);
         });
     }
+
+    @Override
+    public List<UserResponsePagination> pagination(int pageNumber, int pageSize, String sortBy, String sortDir) {
+        Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pages = PageRequest.of(pageNumber, pageSize,sort);
+        Page<User> userList = this.userRepository.findAll(pages);
+        List<User> userListContent = userList.getContent();
+        List<UserResponse> userResponseList = userListContent.stream().map((this::mapToUserResponse)).toList();
+        UserResponsePagination userResponsePagination = UserResponsePagination.builder()
+                .userResponseList(userResponseList)
+                .pageNumber(userList.getTotalPages())
+                .pageSize(userList.getSize())
+                .totalElements(userList.getTotalElements())
+                .totalPages(userList.getTotalPages())
+                .lastPage(userList.isLast())
+                .build();
+        log.info("User list using pagination {} " ,userListContent);
+        return Collections.singletonList(userResponsePagination);
+    }
+
 
     private UserResponse mapToUserResponse(User users) {
 
