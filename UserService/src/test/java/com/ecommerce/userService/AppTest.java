@@ -1,4 +1,4 @@
-package com.ecommerce.orderService;
+package com.ecommerce.userService;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
