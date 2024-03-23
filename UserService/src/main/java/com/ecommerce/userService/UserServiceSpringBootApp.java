@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Slf4j
 public class UserServiceSpringBootApp {
     public static void main(String[] args) {
-        log.info("Application started");
+        log.info("Application started successfully");
         SpringApplication.run(UserServiceSpringBootApp.class);
 
     }

@@ -46,6 +46,13 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.FOUND);
     }
 
+    @GetMapping("/{userId}/status/{status}")
+    public ResponseEntity<?> checkStatus(@PathVariable("userId") int userId,@RequestParam("status") String status) {
+        User user = this.userService.changeStatus(userId, status);
+        log.info("User status changed successfully");
+        return new ResponseEntity<>(user, HttpStatus.FOUND);
+    }
+
     @GetMapping("/")
     public ResponseEntity<List<UserResponse>> getAllUserList() {
         List<UserResponse> userResponses = this.userService.listUsers();

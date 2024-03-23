@@ -77,11 +77,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changeStatus(int userId, ChangeStatus changeStatus) {
+    public User changeStatus(int userId, String changeStatus) {
         Optional<User> user = this.userRepository.findById(userId);
         if (user.isPresent()) {
             User users = user.get();
-            users.setChangeStatus(changeStatus);
+            users.setChangeStatus(ChangeStatus.valueOf(changeStatus));
             return this.userRepository.save(users);
         }
 
