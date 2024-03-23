@@ -4,6 +4,7 @@ import com.ecommerce.userService.model.ChangeStatus;
 import com.ecommerce.userService.model.User;
 import com.ecommerce.userService.payload.UserRequest;
 import com.ecommerce.userService.payload.UserResponse;
+import com.ecommerce.userService.payload.UserResponsePagination;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public interface UserService {
     void deleteById(int userId);
 
     //change status
-    User changeStatus(int userId, ChangeStatus changeStatus);
+    User changeStatus(int userId, String changeStatus);
     void isDeleted(int userId);
+
+    List<UserResponsePagination> pagination(int pageNumber, int pageSize, String sortBy, String sortDir);
 }

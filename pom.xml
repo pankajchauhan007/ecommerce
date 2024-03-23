@@ -9,7 +9,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.2.3</version>
     <relativePath/>
-    <!--  lookup parent from repository  -->
+
   </parent>
 
   <groupId>com.ecommerce</groupId>
@@ -18,13 +18,12 @@
   <packaging>pom</packaging>
 
   <name>ecommerce</name>
-  <!-- FIXME change it to the project's website -->
+
   <url>http://www.example.com</url>
   <modules>
     <module>UserService</module>
       <module>ProductService</module>
       <module>OrderService</module>
-      <module>PaymentsService</module>
   </modules>
 
   <properties>
